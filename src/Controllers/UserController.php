@@ -85,25 +85,39 @@ class UserController {
             header('Location: /login');
             exit;
         }
+        
+        $mail = new PHPMailer(true);
 
-        $user_id = $_SESSION['user_id'];
-        $usuario = $this->userDAO->selectById($user_id);
+        try {
+            // 1. Configurações do Servidor SMTP (Gmail)
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            
+            // **USO SEGURO DE CREDENCIAIS AQUI**
+            $mail->Username = $_ENV['GMAIL_USER'];
+            $mail->Password = $_ENV['GMAIL_PASS'];
+            
+            // Configurações de segurança e porta
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port  = 465;
 
-        $data = [
-            'name' => $_POST['nome'],
-            'email' => $_POST['email']
-        ];
+            // 2. Remetente e Destinatário
+            $mail->setFrom($_ENV['GMAIL_USER'], 'Braille3D Suporte');
+            $mail->addAddress($_POST['email']);
 
-        if(!empty($_POST['senha'])) {
-            $data = [
-            'password' => password_hash($_POST['senha'], PASSWORD_BCRYPT)
-            ];
+            // 3. Conteúdo do E-mail
+            $mail->isHTML(true);
+            $mail->Subject = 'Sua Mensagem Importante';
+            $mail->Body    = 'Este é o corpo da mensagem em **HTML**.';
+            $mail->AltBody = 'Este é o corpo da mensagem em texto puro (para clientes que não suportam HTML).';
+
+            $mail->send();
+            echo 'Mensagem enviada com sucesso!';
+            
+        } catch (Exception $e) {
+            echo "A mensagem não pôde ser enviada. Erro do PHPMailer: {$mail->ErrorInfo}";
         }
-
-        $this->userDAO->update($user_id, $data);
-
-        header('Location: /perfil');
-
     }
 }
 

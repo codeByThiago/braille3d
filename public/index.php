@@ -2,6 +2,10 @@
 
 include dirname(__FILE__, 2) . "/src/Core/Autoload.php";
 include dirname(__FILE__, 2) . "/src/Core/Config.php";
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 use Controllers\UserController;
 use Controllers\AuthController;
