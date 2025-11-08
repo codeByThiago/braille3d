@@ -1,0 +1,344 @@
+/* ================================================= */
+/* 📱 MOBILE FIRST: Padrão para telas pequenas (0-767px) */
+/* ================================================= */
+
+.navbar-header {
+    background-color: var(--bg-secondary); /* Fundo escuro da navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem; /* Padding vertical e horizontal */
+    max-width: 1200px; /* Limite de largura para desktop */
+    margin: 0 auto;
+}
+
+/* --- Logo e Nome da Marca --- */
+.navbar-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-light);
+    gap: 0.5rem;
+}
+
+.navbar-logo {
+    height: 30px; /* Tamanho da logo no mobile */
+    width: auto;
+}
+
+.navbar-brand-name {
+    font-family: var(--title-font);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--vibrant-blue);
+    text-transform: uppercase;
+}
+
+/* --- Menu Toggle (Hamburguer) --- */
+.menu-toggle {
+    display: flex; /* Visível no mobile */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-light);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    transform-origin: 1px;
+}
+
+/* Animação do hamburguer para X */
+.menu-toggle[aria-expanded="true"] .bar:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.menu-toggle[aria-expanded="true"] .bar:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+
+/* --- Menu Principal (Links) --- */
+.navbar-menu {
+    display: none; /* Escondido por padrão (mobile) */
+    position: absolute;
+    top: 100%; /* Abaixo da navbar */
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-secondary);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 1rem 0;
+    transition: transform 0.3s ease-out;
+    transform: translateY(-100%); /* Começa fora da tela */
+}
+
+.navbar-menu.active {
+    display: block; /* Mostra quando ativo (via JS) */
+    transform: translateY(0);
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-light);
+    font-family: var(--default-font);
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    background-color: var(--bg-accent-light);
+    color: var(--vibrant-blue);
+}
+
+/* Estilos específicos para links */
+.cad-button, .login-button {
+    display: inline-block;
+    width: 130px;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.cad-button {
+    background-color: var(--vibrant-blue);
+}
+
+.cad-button:hover {
+    background-color: var(--accent-blue-hover);
+    color: white;
+}
+
+.login-button {
+    background-color: var(--medium-gray);
+}
+
+.login-button:hover {
+    background-color: var(--medium-dark-gray);
+    color: white;
+}
+
+.logout-link {
+    color: var(--error-red);
+}
+
+.logout-link:hover {
+    color: var(--white);
+    background-color: var(--error-red);
+}
+
+/* Esconder o ícone de perfil de desktop no mobile */
+.profile-desktop {
+    display: none;
+}
+
+/* O link de perfil mobile é visível no mobile */
+.mobile-only {
+    display: block;
+}
+
+
+/* --- Círculo de Perfil (Avatar) --- */
+.profile-avatar-link {
+    /* Estilo de link que contém a imagem */
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.profile-avatar-link:hover {
+    border-color: var(--vibrant-blue);
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+    border-radius: 50%; /* Transforma o quadrado em círculo */
+    display: block;
+}
+
+
+/* --- Toggle de Tema --- */
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem; /* Apenas para alinhar com os outros links */
+}
+
+.theme-toggle {
+    background: var(--bg-accent-light);
+    border: 2px solid var(--medium-gray);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.theme-toggle:hover {
+    border-color: var(--vibrant-blue);
+    background: var(--bg-secondary);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Esconde e mostra os ícones de acordo com o tema (data-theme no <html>) */
+html[data-theme="dark"] .sun-icon {
+    display: none;
+}
+html[data-theme="dark"] .moon-icon {
+    color: var(--vibrant-blue);
+    display: block;
+}
+html[data-theme="light"] .sun-icon {
+    color: var(--warning-orange);
+    display: block;
+}
+html[data-theme="light"] .moon-icon {
+    display: none;
+}
+
+@media (min-width: 768px) {
+
+    .navbar-container {
+        padding: 0.75rem 2rem;
+    }
+    
+    .menu-toggle {
+        display: none;
+    }
+
+    .navbar-menu {
+        display: flex;
+        position: static;
+        width: auto;
+        box-shadow: none;
+        padding: 0;
+        transform: translateY(0);
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .navbar-links {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0.75rem;
+    }
+
+    /* Links de login/cadastro */
+    .nav-item:nth-last-child(2) .nav-link.primary-button { 
+        margin-left: 1rem; /* Adiciona um espaço antes do botão */
+    }
+
+    /* Esconde o link de perfil duplicado no desktop */
+    .mobile-only {
+        display: none;
+    }
+
+    /* Mostra o ícone de perfil de desktop */
+    .profile-desktop {
+        display: block;
+        margin-left: 0.75rem; /* Espaçamento entre histórico e perfil */
+    }
+    
+    /* Oculta os ícones de texto no desktop para economizar espaço */
+    .navbar-links .nav-link svg {
+        display: none;
+    }
+
+    /* Exceto no link de sair e histórico (para ícones pequenos) */
+    .navbar-links .nav-link {
+        gap: 0.25rem;
+    }
+
+    .nav-item a.nav-link {
+        /* Remove o ícone do link no desktop, mantendo o texto */
+        padding: 0.5rem 0.75rem;
+    }
+    
+    /* Permite que o ícone de sair e histórico continue com o ícone para melhor visual */
+    .nav-link.logout-link,
+    .nav-item a[href="/historico.php"] {
+        display: flex;
+        align-items: center;
+    }
+    .nav-link.logout-link svg,
+    .nav-item a[href="/historico.php"] svg {
+        display: block;
+    }
+}
+
+/* Ajustes finais para o Toggle de Tema no Desktop */
+@media (min-width: 768px) {
+    .theme-switch-container {
+        padding: 0; /* Remove padding para ficar mais compacto */
+        margin-left: 1rem; /* Espaço após o último item de menu */
+    }
+    
+    .theme-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .navbar-menu {
+        display: flex !important; /* FORÇA A EXIBIÇÃO: Garante que o menu volte ao layout de desktop, mesmo que a classe 'active' não tenha sido removida no JS */
+        position: static;
+        width: auto;
+        box-shadow: none;
+        padding: 0;
+        transform: translateY(0) !important; /* FORÇA O ALINHAMENTO: Anula qualquer transformação de mobile-open */
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+}

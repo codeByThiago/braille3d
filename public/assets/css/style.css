@@ -1,0 +1,165 @@
+@charset "utf-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import url("navbar.css");
+@import url("footer.css");
+@import url("filtros.css");
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root, :root[data-theme="dark"] {
+  /* 💙 ============= PALETA DE AZUIS ============= */
+
+  --vibrant-blue: #007bff; /* Azul vibrante principal */
+  --dark-blue: #001f4d; /* Azul escuro profundo */
+  --medium-blue: #1e5eff; /* Azul médio de destaque */
+  --light-blue: #69a6ff; /* Azul claro */
+  --extra-light-blue: #cfe4ff; /* Azul muito claro */
+
+  /* NEUTROS AZULADOS */
+  --black: #000814; /* Preto azulado */
+  --dark-gray: #0a0f1f; /* Fundo muito escuro azulado */
+  --medium-dark-gray: #1b263b; /* Azul acinzentado médio */
+  --medium-gray: #415a77; /* Azul acinzentado claro */
+  --light-gray: #e0e6ed; /* Cinza azulado suave */
+  --white: #ffffff;
+
+  /* STATUS */
+  --error-red: #ff4d4d;
+  --warning-orange: #ffb347;
+  --success-green: #34c759;
+
+  /* COMPONENTES E FUNDOS */
+  --bg-dark: var(--dark-blue);
+  --bg-accent: #0d1b2a;
+  --bg-accent-light: #102b4d;
+  --bg-secondary: #173a6c;
+
+  /* AZUIS DE DESTAQUE */
+  --accent-blue: var(--vibrant-blue);
+  --accent-blue-hover: #0056cc;
+
+  /* TEXTO */
+  --text-light: #f5f9ff;
+  --text-muted: #a7b4cc;
+
+  /* FONTES */
+  --default-font: "Poppins", sans-serif;
+  --title-font: "Montserrat", sans-serif;
+  --font-padrao: var(--default-font);
+  --font-chamativa: var(--title-font);
+}
+
+:root[data-theme="light"] {
+  /* 💙 ============= PALETA DE AZUIS ============= */
+
+  --vibrant-blue: #0056cc; /* Azul vibrante principal */
+  --dark-blue: #003380; /* Azul escuro para texto e detalhes */
+  --medium-blue: #1e5eff; /* Azul médio de destaque */
+  --light-blue: #69a6ff; /* Azul claro */
+  --extra-light-blue: #e8f1ff; /* Azul muito claro para fundos */
+
+  /* NEUTROS AZULADOS */
+  --black: #0a0a0a; /* Preto suave */
+  --dark-gray: #1f1f1f; /* Cinza escuro para texto */
+  --medium-dark-gray: #4a4a4a; /* Cinza médio para ícones e texto secundário */
+  --medium-gray: #b0b8c4; /* Cinza azulado leve */
+  --light-gray: #f0f4f8; /* Fundo claro azulado */
+  --white: #ffffff;
+
+  /* STATUS */
+  --error-red: #e53935;
+  --warning-orange: #ff9800;
+  --success-green: #28a745;
+
+  /* COMPONENTES E FUNDOS */
+  --bg-dark: #f7faff; /* Fundo geral claro */
+  --bg-accent: #e3ecff; /* Fundo de destaque */
+  --bg-accent-light: #f2f6ff; /* Fundo de componentes */
+  --bg-secondary: #d8e3ff; /* Fundo mais forte para contraste */
+
+  /* AZUIS DE DESTAQUE */
+  --accent-blue: var(--vibrant-blue);
+  --accent-blue-hover: #0041a8;
+
+  /* TEXTO */
+  --text-light: #0d1b2a; /* Azul muito escuro para texto principal */
+  --text-muted: #5c6f91; /* Azul acinzentado para texto secundário */
+
+  /* FONTES */
+  --default-font: "Poppins", sans-serif;
+  --title-font: "Montserrat", sans-serif;
+  --font-padrao: var(--default-font);
+  --font-chamativa: var(--title-font);
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-padrao);
+  color: var(--text-light);
+}
+
+#main-content-wrapper {
+  background: var(--bg-accent);
+}
+
+/* Estilos Existentes */
+.alert {
+  position: fixed;
+  width: 200px;
+  top: 15px; /* Posição final da animação de entrada */
+  left: 50%;
+  z-index: 10000;
+  transform: translateX(-50%);
+  padding: 5px;
+  border-radius: 10px;
+  animation: animacao 0.5s forwards; /* Use forwards para manter o estado final */
+}
+
+/* Animação de Entrada (você tinha 'top: 15px;' em 100%, ajuste para 15px) */
+@keyframes animacao {
+  0% {
+    top: -50px; /* Começa mais alto */
+    opacity: 0;
+  }
+  100% {
+    top: 15px; /* Posição visível */
+    opacity: 1;
+  }
+}
+
+/* Novo Estilo para esconder o alerta */
+.alert.alert-hide {
+  animation: animacao-saida 0.5s forwards; /* Aplica a animação de saída */
+}
+
+/* Nova Animação de Saída (subindo) */
+@keyframes animacao-saida {
+  0% {
+    top: 15px; /* Começa na posição visível */
+    opacity: 1;
+  }
+  100% {
+    top: -50px; /* Sobe para fora da tela */
+    opacity: 0;
+  }
+}
+
+/* (Seus estilos .alert-sucess e .alert-error permanecem os mesmos) */
+.alert-sucess {
+  background-color: green;
+  color: white;
+}
+
+.alert-error {
+  background-color: red;
+  color: white;
+}

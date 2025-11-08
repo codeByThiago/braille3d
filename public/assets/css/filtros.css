@@ -1,0 +1,38 @@
+#colorblind-filter {
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  z-index: 1000 !important;
+  
+  background-color: #ffffffcc;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: var(--font-padrao);
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#main-content-wrapper.achromatomia,
+#main-content-wrapper.achromatopsia {
+  filter: grayscale(100%) !important;
+}
+
+#main-content-wrapper.deuteranomaly,
+#main-content-wrapper.deuteranopia {
+  filter: sepia(60%) saturate(150%) hue-rotate(-50deg) !important;
+}
+
+#main-content-wrapper.protanomaly,
+#main-content-wrapper.protanopia {
+  filter: sepia(40%) saturate(200%) hue-rotate(50deg) !important;
+}
+
+#main-content-wrapper.tritanomaly,
+#main-content-wrapper.tritanopia {
+  filter: sepia(50%) saturate(150%) hue-rotate(150deg) !important;
+}
