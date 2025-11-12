@@ -29,15 +29,14 @@ class UserController {
     }
     
     public function getUserById(int $userId): ?array {
-    try {
-        $userDAO = new \DAOs\UserDAO();
-        $usuario = $userDAO->selectById($userId);
-        return $usuario ?: null;
-    } catch (\Exception $e) {
-        error_log("Erro ao buscar usuário por ID: " . $e->getMessage());
-        return null;
+        try {
+            $usuario = $this->userDAO->selectById($userId);
+            return $usuario ?: null;
+        } catch (\Exception $e) {
+            error_log("Erro ao buscar usuário por ID: " . $e->getMessage());
+            return null;
+        }
     }
-}
 
     public function userProfile() : void {
         if (!isset($_SESSION['user_id'])) {

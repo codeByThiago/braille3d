@@ -46,8 +46,6 @@ class UserDAO extends BaseDAO {
         } catch (PDOException $e) {
             throw new Exception("Erro ao atualizar foto de usuário: " . $e->getMessage());
         }
-        
-        
     }
 
     public function atualizarNome(int $id, string $nome): bool {

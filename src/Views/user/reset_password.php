@@ -35,8 +35,8 @@
                         <label for="nova_senha" class="sr-only">Nova senha:</label>
                         <input 
                             type="password" 
-                            name="nova_senha" 
-                            id="nova_senha" 
+                            name="senha" 
+                            id="senha" 
                             autocomplete="new-password" 
                             required 
                             placeholder="Digite sua nova senha"
@@ -49,29 +49,30 @@
 
                     <div class="input-wrapper">
                         <i class="fa-solid fa-lock"></i>
-                        <label for="confirmar_senha" class="sr-only">Confirmar senha:</label>
+                        <label for="confirme-senha" class="sr-only">Confirmar senha:</label>
                         <input 
                             type="password" 
-                            name="confirmar_senha" 
-                            id="confirmar_senha" 
+                            name="confirme-senha" 
+                            id="confirme-senha" 
                             autocomplete="new-password" 
                             required 
                             placeholder="Confirme sua nova senha"
                             minlength="8"
                         >
-                        <button type="button" class="eye-password-viewer-btn" id="mostra-confirma-btn">
-                            <i class="fa-solid fa-eye" id="eye-confirma"></i>
+                        <button type="button" class="eye-password-viewer-btn" id="mostra-confirme-senha-btn">
+                            <i class="fa-solid fa-eye" id="eye-confirme-senha"></i>
                         </button>
                     </div>
 
                     <button type="submit" class="auth-submit-btn">Redefinir Senha</button>
+                    
                 </form>
             </div>
         </section>
     </div>
 
     <?php include VIEWS . 'includes/filtros-cor.php'; ?>
-    <script src="/assets/js/filtros.js"></script>
-    <script type="module" src="/assets/js/senha.js"></script>
+    <script src="/filtros.js"></script>
+    <script type="module" src="/senha.js"></script>
 </body>
 </html>

@@ -97,7 +97,7 @@ switch ($url) {
             $email = $user['email'];
             $passwordController->solicitarTrocaSenha($_SESSION['user_id'], $email, 'http://localhost:8000');
         } else {
-            // header('Location: /perfil');
+            header('Location: /perfil');
         }
         break;
 
@@ -117,14 +117,24 @@ switch ($url) {
         break;
 
     case '/user/reset-password':
-        $controller = new \Controllers\PasswordResetsController();
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             // Exibe o formulário de redefinição (usuário clicou no link)
-            $controller->showResetForm();
+            $passwordController->showResetForm();
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Usuário enviou a nova senha
-            $controller->handleReset();
+            $passwordController->handleReset();
+        }
+        break;
+    
+    case '/user/esqueci-a-senha':
+
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $passwordController->showForgotForm();
+            
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Usuário enviou o email
+            $passwordController->handleForgot();
         }
         break;
 

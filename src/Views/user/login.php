@@ -43,7 +43,7 @@
                         <label for="remind-me">Lembrar-me neste dispositivo</label>
                     </div>
                     <button type="submit" class="auth-submit-btn">Entrar</button>
-                    <p>Esqueceu a senha? <a href="/esqueceu-senha">Clique aqui.</a></p>
+                    <p>Esqueceu a senha? <a href="/user/esqueci-a-senha">Clique aqui.</a></p>
                     <p>Não possui cadastro? <a href="/cadastro">Cadastre-se</a></p>
                 </form>
             </div>

@@ -111,8 +111,8 @@ class AuthController {
     public function resetPassword(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tokenPuro = $_POST['token'] ?? '';
-            $novaSenha = $_POST['nova_senha'] ?? '';
-            $confirmarSenha = $_POST['confirmar_senha'] ?? '';
+            $novaSenha = $_POST['senha'] ?? '';
+            $confirmarSenha = $_POST['confirme-senha'] ?? '';
 
             if (empty($tokenPuro) || empty($novaSenha) || empty($confirmarSenha)) {
                 $_SESSION['error_message'] = "Preencha todos os campos.";

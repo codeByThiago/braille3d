@@ -43,52 +43,48 @@ class EmailChangesController {
 
 
     public function enviaEmailComToken(string $novoEmail, string $tokenPuro, string $baseUrl): bool {
-        
-        // 1. CONSTRÓI O LINK DE CONFIRMAÇÃO
         $confirmationLink = "{$baseUrl}/user/confirm-email-change?token={$tokenPuro}";
-        $assunto = 'Confirme seu Novo Endereço de E-mail (Braille3D)';
+        $assunto = '📧 Confirme seu novo endereço de e-mail - Braille3D';
 
-        // 2. CORPO DO E-MAIL (HTML formatado)
         $bodyHTML = '
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                 <h2 style="color: #007bff;">Confirmação de Alteração de E-mail</h2>
-                
+
                 <p>Olá,</p>
-                
-                <p>Recebemos uma solicitação para mudar o endereço de e-mail associado à sua conta Braille3D para este endereço: <strong>' . htmlspecialchars($novoEmail) . '</strong>.</p>
-                
-                <p>Se você solicitou esta mudança, por favor, clique no botão abaixo para **confirmar o novo e-mail**.</p>
+                <p>Recebemos uma solicitação para alterar o e-mail associado à sua conta <strong>Braille3D</strong> para: <strong>' . htmlspecialchars($novoEmail) . '</strong>.</p>
+
+                <p>Para confirmar essa alteração, clique no botão abaixo:</p>
                 
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 20px 0;">
                     <tr>
                         <td style="border-radius: 5px; background-color: #28a745; text-align: center;">
                             <a href="' . $confirmationLink . '" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                                SIM, EU CONCORDO E CONFIRMO
+                                Confirmar Novo E-mail
                             </a>
                         </td>
                     </tr>
                 </table>
 
                 <p style="font-size: 14px; color: #777;">
-                    <strong>Importante:</strong> Este link expirará em 1 hora. Se você não solicitou esta alteração, ignore este e-mail. Sua conta permanecerá segura.
+                    Este link expira em <strong>1 hora</strong>.<br>
+                    Se você não solicitou essa alteração, ignore este e-mail — nenhuma mudança será feita.
                 </p>
-                
-                <p>Obrigado,<br>Equipe Braille3D</p>
+
+                <p>Atenciosamente,<br>Equipe Braille3D</p>
             </div>
         ';
-        
-        // 3. CORPO ALTERNATIVO (Texto Puro)
-        $altBody = "Você solicitou a mudança do e-mail. Confirme clicando no link: {$confirmationLink}";
 
-        // 4. ENVIA O E-MAIL (Note que o destinatário é o $novoEmail)
+        $altBody = "Confirme a alteração do e-mail acessando: {$confirmationLink}";
+
         try {
-            $this->mailerService->sendMessage($novoEmail, $assunto, $bodyHTML, $confirmationLink);
+            $this->mailerService->sendMessage($novoEmail, $assunto, $bodyHTML, $altBody);
             return true;
         } catch (Exception $e) {
             error_log('Erro ao enviar e-mail: ' . $e->getMessage());
             return false;
         }
-    }
+}
+
 
     public function confirmarTrocaEmail(string $tokenPuro): array {
         try {
