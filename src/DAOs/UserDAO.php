@@ -49,6 +49,36 @@ class UserDAO extends BaseDAO {
         
         
     }
+
+    public function atualizarNome(int $id, string $nome): bool {
+        try {
+            $stmt = $this->conexao->prepare("UPDATE users SET name = ? WHERE id = ?");
+            return $stmt->execute([$nome, $id]);
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao atualizar nome: " . $e->getMessage());
+        }
+    }
+
+    public function atualizarEmail(int $id, string $email): bool {
+        try {
+            $stmt = $this->conexao->prepare("UPDATE users SET email = ? WHERE id = ?");
+            return $stmt->execute([$email, $id]);
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao atualizar e-mail: " . $e->getMessage());
+        }
+    }
+
+    public function atualizarSenha(int $id, string $senha): bool {
+        try {
+            // Criptografa a nova senha
+            $hashedPassword = password_hash($senha, PASSWORD_DEFAULT);
+
+            $stmt = $this->conexao->prepare("UPDATE users SET password = ? WHERE id = ?");
+            return $stmt->execute([$hashedPassword, $id]);
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao atualizar senha: " . $e->getMessage());
+        }
+    }
 }
 
 ?>

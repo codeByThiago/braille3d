@@ -10,6 +10,7 @@
     <title>Braille3D - Login</title>
 </head>
 <body>
+    <?php include VIEWS . "includes/alert.php";?>
     <div id="main-content-wrapper">
         <section class="auth">
             <div id="welcome-content">
@@ -44,7 +45,7 @@
                     </div>
                     <div class="input-wrapper">
                         <i class="fa-solid fa-key"></i>
-                        <label for="senha" class="sr-only">Confirme a senha:</label>
+                        <label for="confirme-senha" class="sr-only">Confirme a senha:</label>
                         <input type="password" name="confirme-senha" id="confirme-senha" autocomplete="new-password" required placeholder="Confirme sua senha" min="8">
                         <button type="button" class="eye-password-viewer-btn" id="mostra-confirme-senha-btn">
                             <i class="fa-solid fa-eye" id='eye-confirme-senha'></i>

@@ -66,13 +66,20 @@ class AuthController {
                 'email' => $_POST['email'] ?? '',
             ];
 
-            $user = new User($dataUser);
-            $newId = $this->userDAO->create($user->toArray());
+            if ($_POST['senha'] !== $_POST['confirme-senha']) {
+                $_SESSION['error_message'] = "As senhas não coincidem.";
+                header('Location: /cadastro');
+                exit;
+            } else {
+                $user = new User($dataUser);
+                $newId = $this->userDAO->create($user->toArray());
 
-            $user->setId($newId);
+                $user->setId($newId);
 
-            $_SESSION['sucess_message'] = 'Seja bem vindo,' . $dataUser['name'] . 'Você se cadastrou com sucesso!';
-            header('Location: /login');
+                $_SESSION['sucess_message'] = 'Seja bem vindo, ' . $dataUser['name'] . '. Você se cadastrou com sucesso!';
+                header('Location: /login');
+            }
+
         }
     }
 
@@ -87,6 +94,70 @@ class AuthController {
         session_destroy();
 
         header('Location: /');
+    }
+
+    public function showResetPasswordForm(): void {
+        // Exibe o formulário de redefinição de senha (acessado via link do e-mail)
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            require_once VIEWS . 'user/reset_password.php';
+        } else {
+            $_SESSION['error_message'] = "Link inválido ou expirado.";
+            header("Location: /login");
+            exit;
+        }
+    }
+
+    public function resetPassword(): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $tokenPuro = $_POST['token'] ?? '';
+            $novaSenha = $_POST['nova_senha'] ?? '';
+            $confirmarSenha = $_POST['confirmar_senha'] ?? '';
+
+            if (empty($tokenPuro) || empty($novaSenha) || empty($confirmarSenha)) {
+                $_SESSION['error_message'] = "Preencha todos os campos.";
+                header("Location: /user/reset-password?token=" . urlencode($tokenPuro));
+                exit;
+            }
+
+            if ($novaSenha !== $confirmarSenha) {
+                $_SESSION['error_message'] = "As senhas não coincidem.";
+                header("Location: /user/reset-password?token=" . urlencode($tokenPuro));
+                exit;
+            }
+
+            $tokenHash = hash('sha256', $tokenPuro);
+
+            // DAO que validará o token (PasswordResetsDAO)
+            $passwordResetsDAO = new \DAOs\PasswordResetsDAO();
+            $registro = $passwordResetsDAO->buscarPorToken($tokenHash);
+
+            if (!$registro) {
+                $_SESSION['error_message'] = "Token inválido ou expirado.";
+                header("Location: /login");
+                exit;
+            }
+
+            // Atualiza a senha do usuário
+            $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+
+            try {
+                $this->userDAO->atualizarSenha($registro['user_id'], $novaSenhaHash);
+                $passwordResetsDAO->deletarPorId($registro['id']);
+
+                $_SESSION['success_message'] = "Senha redefinida com sucesso! Faça login novamente.";
+                header("Location: /login");
+                exit;
+            } catch (\Exception $e) {
+                error_log("Erro ao redefinir senha: " . $e->getMessage());
+                $_SESSION['error_message'] = "Erro ao redefinir senha. Tente novamente.";
+                header("Location: /user/reset-password?token=" . urlencode($tokenPuro));
+                exit;
+            }
+        } else {
+            header("Location: /login");
+            exit;
+        }
     }
 }
 
