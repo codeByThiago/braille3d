@@ -45,7 +45,7 @@
                     <button type="submit" class="auth-submit-btn">Entrar</button>
                     <p>Esqueceu a senha? <a href="/user/esqueci-a-senha">Clique aqui.</a></p>
                     <p>Não possui cadastro? <a href="/cadastro">Cadastre-se</a></p>
-                        <a href="/user/google-login" class="google-btn"><i class="fa-brands fa-google"></i> Entrar com Google</a>
+                    <a href="/user/google-login" class="google-btn"><i class="fa-brands fa-google"></i> Entrar com Google</a>
                 </form>
             </div>
         </section>

@@ -36,26 +36,70 @@ class PlacaDAO extends BaseDAO {
             return $newID = $this->conexao->lastInsertId();
 
         } catch (PDOException $e) {
-            
-            echo $data['user_id'];
-            echo $data['texto'];
-            echo $data['uppercase'];
-            echo $data['contracoes'];
-            echo $data['tam_forma'];
-            echo $data['altura_ponto'];
-            echo $data['diametro_ponto'];
-            echo $data['espessura'];
-            echo $data['margem'];
-            echo $data['canto_referencia'];
-            echo $data['suporte'];
-
             throw new Exception("Erro ao inserir placa: " . $e->getMessage());
         }
     }
 
-    public function listAllById() : array {
+    public function update(int $id, array $data): bool {
         try {
-            $user_id = $_SESSION['user_id'];
+            $sql = "UPDATE placa SET 
+                        texto = :texto,
+                        uppercase = :uppercase,
+                        contracoes = :contracoes,
+                        conversao_direta = :conversao_direta,
+                        tam_forma = :tam_forma,
+                        altura_ponto = :altura_ponto,
+                        diametro_ponto = :diametro_ponto,
+                        espessura = :espessura,
+                        margem = :margem,
+                        canto_referencia = :canto_referencia,
+                        suporte = :suporte
+                    WHERE id = :id";
+
+            $stmt = $this->conexao->prepare($sql);
+
+            $stmt->bindParam(":texto", $data['texto']);
+            $stmt->bindParam(":uppercase", $_POST['uppercase']);
+            $stmt->bindParam(":contracoes", $_POST['contracoes']);
+            $stmt->bindParam(":conversao_direta", $_POST['conversao_direta']);
+            $stmt->bindParam(":tam_forma", $data['tam_forma']);
+            $stmt->bindParam(":altura_ponto", $data['altura_ponto']);
+            $stmt->bindParam(":diametro_ponto", $data['diametro_ponto']);
+            $stmt->bindParam(":espessura", $data['espessura']);
+            $stmt->bindParam(":margem", $data['margem']);
+            $stmt->bindParam(":canto_referencia", $_POST['canto_referencia']);
+            $stmt->bindParam(":suporte", $_POST['suporte']);
+
+            $stmt->bindParam(":id", $id);
+
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao atualizar placa: " . $e->getMessage());
+        }
+    }
+
+    public function selectByIdAndUserId(int $id, int $user_id) {
+        try {
+            $sql = "SELECT * FROM placa WHERE id = :id AND user_id = :user_id";
+            $stmt = $this->conexao->prepare($sql);
+
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':user_id', $user_id);
+
+            $stmt->execute();
+
+            $placa = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $placa;
+
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao selecionar placa: " . $e->getMessage());
+        }
+    }
+
+    public function listAllById(int $user_id) : array {
+        try {
         
             $sql = "SELECT * FROM placa WHERE user_id = :user_id";
             $stmt = $this->conexao->prepare($sql);

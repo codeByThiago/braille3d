@@ -163,3 +163,28 @@ body {
   background-color: red;
   color: white;
 }
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  color: blue;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.google-btn:hover {
+  background: #f9f9f9;
+  border-color: #bbb;
+}
+
+.google-btn i {
+  margin-right: 8px;
+  color: blue;
+  font-size: 1.2rem;
+}

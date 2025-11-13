@@ -53,6 +53,7 @@
                     </div>
                     <button type="submit" class="auth-submit-btn">Registrar</button>
                     <p>Já possui cadastro? <a href="/login">Faça Login</a></p>
+                    <a href="/user/google-login" class="google-btn"><i class="fa-brands fa-google"></i> Entrar com Google</a>
                 </form>
             </div>
         </section>

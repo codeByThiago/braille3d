@@ -210,6 +210,7 @@
                         form.appendChild(input);
                     }
 
+                    addInput("id", id);
                     addInput("texto", texto);
                     addInput("uppercase", uppercase);
                     addInput("contracoes", contracoes);

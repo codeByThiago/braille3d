@@ -26,6 +26,8 @@ $emailController = new EmailChangesController();
 $passwordController = new PasswordResetsController();
 $authController = new AuthController();
 
+$placa = null;
+
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
 switch ($url) {
@@ -38,9 +40,13 @@ switch ($url) {
         break;
 
     case '/atualizar':
-        $placaController->atualizarPlaca();
+        if(isset($_SESSION['user_id'])) {
+            $placaController->atualizarPlaca();
+        } else {
+            header('Location: /');
+        }
         break;
-    
+
     case '/login':
         if ($_SERVER["REQUEST_METHOD"] === 'POST') {
             $authController->login();
