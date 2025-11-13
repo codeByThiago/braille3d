@@ -14,7 +14,7 @@ class PlacaDAO extends BaseDAO {
 
     public function create(array $data) : int {
         try {
-            $sql = "INSERT INTO placa (user_id, texto, uppercase, contracoes, tam_forma, altura_ponto, diametro_ponto, espessura, margem, canto_referencia, suporte) VALUES(:user_id, :texto, :uppercase, :contracoes, :tam_forma, :altura_ponto, :diametro_ponto, :espessura, :margem, :canto_referencia, :suporte)";
+            $sql = "INSERT INTO placa (user_id, texto, uppercase, contracoes, conversao_direta, tam_forma, altura_ponto, diametro_ponto, espessura, margem, canto_referencia, suporte) VALUES(:user_id, :texto, :uppercase, :contracoes, :conversao_direta, :tam_forma, :altura_ponto, :diametro_ponto, :espessura, :margem, :canto_referencia, :suporte)";
 
             $stmt = $this->conexao->prepare($sql);
             
@@ -22,6 +22,7 @@ class PlacaDAO extends BaseDAO {
             $stmt->bindParam(":texto", $data['texto']);
             $stmt->bindParam(":uppercase", $_POST['uppercase']);
             $stmt->bindParam(":contracoes", $_POST['contracoes']);
+            $stmt->bindParam(":conversao_direta", $_POST['conversao_direta']);
             $stmt->bindParam(":tam_forma", $data['tam_forma']);
             $stmt->bindParam(":altura_ponto", $data['altura_ponto']);
             $stmt->bindParam(":diametro_ponto", $data['diametro_ponto']);

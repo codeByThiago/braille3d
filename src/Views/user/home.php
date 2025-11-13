@@ -88,6 +88,7 @@
         }
 
         window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
             const savedFilter = localStorage.getItem("colorblind-filter") || "default";
             
             applyColorblindFilter(savedFilter);
@@ -101,6 +102,49 @@
             jQuery.get('braille.jscad', function (data) {
                 gProcessor.setJsCad(data, "braille.jscad");
                 showDetails(false);
+
+                // Espera o OpenJSCAD montar os controles
+                // const urlParams = new URLSearchParams(window.location.search);
+
+                // Verifica se existe algum parâmetro
+                if (window.location.search.length > 1) {
+                    setTimeout(() => {
+                        const id = urlParams.get('id') || null;
+                        const texto = urlParams.get('texto') || "Olá Mundo";
+                        const uppercase = urlParams.get('uppercase') === '1';
+                        const contracoes = urlParams.get('contracoes') === '1';
+                        const conversao_direta = urlParams.get('conversao_direta') === '1';
+                        const tam_forma = parseFloat(urlParams.get('tam_forma')) || 5.0;
+                        const altura_ponto = parseFloat(urlParams.get('altura_ponto')) || 0.7;
+                        const diametro_ponto = parseFloat(urlParams.get('diametro_ponto')) || 1.5;
+                        const espessura = parseFloat(urlParams.get('espessura')) || 2.0;
+                        const margem = parseFloat(urlParams.get('margem')) || 5.0;
+                        const canto_referencia = urlParams.get('canto_referencia') === '1';
+                        const suporte = urlParams.get('suporte') === '1';
+
+                        const textarea = document.querySelector('.parametersdiv textarea');
+                        const checkboxes = document.querySelectorAll('.parametersdiv input[type="checkbox"]');
+                        const inputs = document.querySelectorAll('.parametersdiv input[type="text"]');
+
+                        if (textarea) textarea.value = texto;
+                        if (checkboxes[0]) checkboxes[0].checked = uppercase;
+                        if (checkboxes[1]) checkboxes[1].checked = contracoes;
+                        if (checkboxes[2]) checkboxes[2].checked = conversao_direta;
+                        if (checkboxes[3]) checkboxes[3].checked = canto_referencia;
+                        if (checkboxes[4]) checkboxes[4].checked = suporte;
+
+                        if (inputs[0]) inputs[0].value = tam_forma;
+                        if (inputs[1]) inputs[1].value = altura_ponto;
+                        if (inputs[2]) inputs[2].value = diametro_ponto;
+                        if (inputs[3]) inputs[3].value = espessura;
+                        if (inputs[4]) inputs[4].value = margem;
+
+                        gProcessor.rebuildSolid();
+                        console.log("✅ Parâmetros aplicados pela URL com sucesso!");
+                    }, 1000);
+                } else {
+                    console.log("ℹ️ Nenhum parâmetro encontrado na URL. Mantendo os valores padrão.");
+                }
             });
 
             adaptControls();
@@ -130,51 +174,21 @@
             <?php if(isset($_SESSION['logado']) && $_SESSION['logado'] === TRUE) {?>
                 const salvarPlacaBtn = document.createElement('button');
                 salvarPlacaBtn.classList.add('salvar-placa-btn');
-                salvarPlacaBtn.innerHTML = 'Salvar';
-                
+
+                // Detecta se veio da página de histórico (tem parâmetros na URL)
+                const temParametros = window.location.search.length > 1;
+                salvarPlacaBtn.innerHTML = temParametros ? 'Atualizar' : 'Salvar';
+
                 parametersDiv.appendChild(salvarPlacaBtn);
-
-                
-                <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] === TRUE && isset($placa)) { ?>
-                    setTimeout(() => {
-                        const paramsDiv = document.querySelector('.parametersdiv');
-                        if (!paramsDiv) {
-                            console.warn("⚠️ Parâmetros ainda não carregados.");
-                            return;
-                        }
-
-                        // Agora é seguro preencher os campos
-                        const textarea = paramsDiv.querySelector('textarea');
-                        if (textarea) textarea.value = <?php echo json_encode($placa['texto']); ?>;
-
-                        const checkboxes = paramsDiv.querySelectorAll('input[type="checkbox"]');
-                        if (checkboxes.length >= 5) {
-                            checkboxes[0].checked = <?php echo (int)$placa['uppercase']; ?>;
-                            checkboxes[1].checked = <?php echo (int)$placa['contracoes']; ?>;
-                            checkboxes[3].checked = <?php echo (int)$placa['canto_referencia']; ?>;
-                            checkboxes[4].checked = <?php echo (int)$placa['suporte']; ?>;
-                        }
-
-                        const inputs = paramsDiv.querySelectorAll('input[type="text"]');
-                        if (inputs.length >= 5) {
-                            inputs[0].value = <?php echo json_encode($placa['tam_forma']); ?>;
-                            inputs[1].value = <?php echo json_encode($placa['altura_ponto']); ?>;
-                            inputs[2].value = <?php echo json_encode($placa['diametro_ponto']); ?>;
-                            inputs[3].value = <?php echo json_encode($placa['espessura']); ?>;
-                            inputs[4].value = <?php echo json_encode($placa['margem']); ?>;
-                        }
-
-                        console.log("✅ Dados da placa carregados do PHP.");
-                    }, 2000); // espera 2 segundos o OpenJsCad montar os campos
-                    <?php } ?>
-
 
                 salvarPlacaBtn.addEventListener('click', (event) => {
                     event.preventDefault();
 
+                    const id = urlParams.get('id') || null;
                     const texto = document.querySelector('.parametersdiv textarea').value || '';
                     const uppercase = document.querySelectorAll('.parametersdiv input[type="checkbox"]')[0].checked ? '1' : '0';
                     const contracoes = document.querySelectorAll('.parametersdiv input[type="checkbox"]')[1].checked ? '1' : '0';
+                    const conversao_direta = document.querySelectorAll('.parametersdiv input[type="checkbox"]')[2].checked ? '1' : '0';
                     const tam_forma = document.querySelectorAll('.parametersdiv input[type="text"]')[0].value || '';
                     const altura_ponto = document.querySelectorAll('.parametersdiv input[type="text"]')[1].value || '';
                     const diametro_ponto = document.querySelectorAll('.parametersdiv input[type="text"]')[2].value || '';
@@ -182,7 +196,7 @@
                     const margem = document.querySelectorAll('.parametersdiv input[type="text"]')[4].value || '';
                     const canto_referencia = document.querySelectorAll('.parametersdiv input[type="checkbox"]')[3].checked ? '1' : '0';
                     const suporte = document.querySelectorAll('.parametersdiv input[type="checkbox"]')[4].checked ? '1' : '0';
-    0
+
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = '/';
@@ -199,6 +213,7 @@
                     addInput("texto", texto);
                     addInput("uppercase", uppercase);
                     addInput("contracoes", contracoes);
+                    addInput("conversao_direta", conversao_direta);
                     addInput("tam_forma", tam_forma);
                     addInput("altura_ponto", altura_ponto);
                     addInput("diametro_ponto", diametro_ponto);
@@ -206,6 +221,14 @@
                     addInput("margem", margem);
                     addInput("canto_referencia", canto_referencia);
                     addInput("suporte", suporte);
+
+                    // Aqui podemos decidir o comportamento:
+                    if (temParametros) {
+                        form.action = '/atualizar'; 
+                    } else {
+                        // Envia para rota de salvar normalmente
+                        form.action = '/';
+                    }
 
                     document.body.appendChild(form);
                     form.submit();

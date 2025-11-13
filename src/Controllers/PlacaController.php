@@ -24,6 +24,7 @@ class PlacaController {
                         'texto' => $_POST['texto'],
                         // 'uppercase' => $_POST['uppercase'],
                         // 'contracoes' => $_POST['contracoes'],
+                        // 'contracoes' => $_POST['conversao_direta'],
                         'tam_forma' => $_POST['tam_forma'],
                         'altura_ponto' => $_POST['altura_ponto'],
                         'diametro_ponto' => $_POST['diametro_ponto'],
@@ -47,6 +48,15 @@ class PlacaController {
                     header('Location: /');
                 }  
             }
+        }
+    }
+
+    public function atualizarPlaca() {
+        try {
+            echo $_POST['id'];
+        } catch (Exception $e) {
+            $_SESSION['error_message'] = "Erro ao atualizar placa!";
+            header('Location: /');
         }
     }
 

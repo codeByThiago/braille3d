@@ -35,7 +35,6 @@ abstract class BaseDAO extends Database {
 
             foreach ($data as $key => $value) {
                 $stmt->bindValue(":$key", $value);
-                echo $key . " = " . $value . "<br>";
             }
 
             $stmt->execute();
@@ -76,9 +75,11 @@ abstract class BaseDAO extends Database {
             $stmt = $this->conexao->prepare($sql);
 
             $stmt->bindValue(':id', $id);
-
+            
+            echo $sql . '<br>';
             foreach ($data as $key => $value) {
                 $stmt->bindValue(":$key", $value);
+                echo ":$key", $value . '<br>';
             }
 
             return $stmt->execute();

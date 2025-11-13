@@ -37,6 +37,10 @@ switch ($url) {
         }
         break;
 
+    case '/atualizar':
+        $placaController->atualizarPlaca();
+        break;
+    
     case '/login':
         if ($_SERVER["REQUEST_METHOD"] === 'POST') {
             $authController->login();
@@ -57,6 +61,14 @@ switch ($url) {
         $authController->logout();
         break;
 
+    case '/user/google-login':
+        $authController->googleLogin();
+        break;
+
+    case '/user/google-callback':
+        $authController->googleCallback();
+        break;
+        
     case '/perfil':
         if (!isset($_SESSION['user_id'])) {
             header('Location: /login');

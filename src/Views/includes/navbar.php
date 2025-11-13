@@ -56,7 +56,13 @@ if(isset($_SESSION['user_id'])) {
                     <li class="nav-item profile-desktop">
                         <a href="/perfil" class="profile-avatar-link">
                             <img 
-                            src="<?php echo !empty($usuario['picture']) ? '../assets/img/uploads/' . htmlspecialchars($usuario['picture']) : '../assets/img/default-user.jpg'; ?>" 
+                            src="<?php
+                                if($usuario['google_id'] == NULL) {
+                                    echo !empty($usuario['picture']) ? '../assets/img/uploads/' . htmlspecialchars($usuario['picture']) : '../assets/img/default-user.jpg';
+                                } else {
+                                    echo $usuario['picture'];
+                                }
+                            ?>" 
                             alt="Foto de Perfil" 
                             class="profile-avatar"
                         >

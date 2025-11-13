@@ -269,6 +269,18 @@ function generate(text) {
 
   if (!parameters.upper) text = text.toLowerCase();
 
+  // Trata maiúsculas corretamente conforme o padrão Braille
+  if (parameters.upper) {
+    // Substitui cada letra maiúscula por as células ⠠⠰ (pontos 6 e 4) + a letra minúscula
+    text = text.replace(/([A-Z])/g, function(match) {
+      // Usa símbolos que você já tenha definidos no dicionário Braille
+      // por exemplo: '^' = ponto 6 e '~' = ponto 4 (ou o que o seu mapa use)
+      return "$" + match.toLowerCase();
+    });
+  } else {
+    text = text.toLowerCase();
+  }
+
   var result = new CSG();
   if (text.length == 0) return result;
 
@@ -483,7 +495,7 @@ function getParameterDefinitions() {
       name: "text",
       caption: "Texto",
       type: "longtext",
-      initial: "Olá\nMundo",
+      initial: "Olá Mundo" ,
     },
     {
       name: "upper",

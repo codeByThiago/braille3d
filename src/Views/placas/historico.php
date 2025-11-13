@@ -87,10 +87,10 @@
                             </div>
 
                             <div class="card-actions">
-                                <button class="action-btn-secondary disabled">
-                                    <!-- <a href="/" class="disabled" style="color: inherit; text-decoration: none;"> -->
-                                        <i class="fas fa-eye"></i> Visualizar 3D (Em manutenção)
-                                    <!-- </a> -->
+                                <button class="action-btn-secondary">
+                                    <a href="/?id=<?= $placa['id'] ?>&texto=<?= urlencode($placa['texto']) ?>&uppercase=<?= $placa['uppercase'] ? 1 : 0 ?>&contracoes=<?= $placa['contracoes'] ?>&conversao_direta=<?= $placa['conversao_direta'] ? 1 : 0 ?>&tam_forma=<?= $placa['tam_forma'] ?>&altura_ponto=<?= $placa['altura_ponto'] ?>&diametro_ponto=<?= $placa['diametro_ponto'] ?>&espessura=<?= $placa['espessura'] ?>&margem=<?= $placa['margem'] ?>&canto_referencia=<?= $placa['canto_referencia'] ? 1 : 0 ?>&suporte=<?= $placa['suporte'] ? 1 : 0 ?>" style="color: inherit; text-decoration: none;">
+                                        <i class="fas fa-eye"></i> Visualizar 3D
+                                    </a>
                                 </button>
                             </div>
                         </div>

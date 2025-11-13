@@ -84,7 +84,14 @@
                 <div class="profile-user-info">
                     <div class="profile-picture-wrapper">
                         <img 
-                            src="<?php echo !empty($usuario['picture']) ? '../assets/img/uploads/' . htmlspecialchars($usuario['picture']) : '../assets/img/default-user.jpg'; ?>" 
+                            src="
+                            <?php
+                                if($usuario['google_id'] == NULL) {
+                                    echo !empty($usuario['picture']) ? '../assets/img/uploads/' . htmlspecialchars($usuario['picture']) : '../assets/img/default-user.jpg';
+                                } else {
+                                    echo $usuario['picture'];
+                                }
+                            ?>" 
                             alt="Foto de Perfil" 
                             class="profile-picture"
                         >

@@ -2,14 +2,18 @@
 
 namespace Controllers;
 
+use Services\GoogleAuthService;
 use Models\User;
 use DAOs\UserDAO;
+use Exception;
 
 class AuthController {
     private UserDAO $userDAO;
+    private GoogleAuthService $googleAuthService;
 
     public function __construct() {
         $this->userDAO = new UserDAO();
+        $this->googleAuthService = new GoogleAuthService;
     }
 
     public function showLoginForm() {
@@ -94,6 +98,42 @@ class AuthController {
         session_destroy();
 
         header('Location: /');
+    }
+
+    public function googleLogin() {
+        header('Location: ' . $this->googleAuthService->getAuthUrl());
+    }
+
+    public function googleCallback() {
+        try {
+            if(!isset($_GET['code'])) {
+                $_SESSION['error_message'] = 'Erro ao tentar autenticar com Google';
+                header('Location: /login');
+                exit;
+            }
+
+            $googleUser = $this->googleAuthService->getUserFromCode($_GET['code']);
+
+            $user = $this->userDAO->getByEmail($googleUser['email']);
+
+            if (!$user) {
+                $this->userDAO->create(['google_id' => $googleUser['id'], 'auth_type' => 'google', 'name' => $googleUser['name'], 'email' => $googleUser['email'], 'picture' => $googleUser['picture']]);
+            } else {
+                $this->userDAO->update($user['id'], ['google_id' => $googleUser['id'], 'auth_type' => 'google', 'name' => $googleUser['name'], 'email' => $googleUser['email'], 'picture' => $googleUser['picture']]);
+            }
+
+            $user = $this->userDAO->getByEmail($googleUser['email']);
+            $_SESSION['logado'] = TRUE;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['name'];
+            $_SESSION['sucess_message'] = 'Login realizado com sucesso!';
+            header('Location: /');
+
+            // header('Location: /');
+
+        } catch (Exception $e) {
+            throw new Exception("Erro de Autenticação: " . $e->getMessage());
+        }
     }
 
     public function showResetPasswordForm(): void {
