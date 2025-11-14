@@ -1,0 +1,134 @@
+#main-content-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-accent);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+ /* ==================== ESTILOS PARA O CONTAINER 404 ==================== */
+.error-container {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  padding: 40px;
+  max-width: 600px;
+  width: 90%;
+  
+  background: var(--bg-accent-light);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); 
+  margin: auto;
+  transition: all 0.5s ease;
+}
+
+.error-content {
+  margin-bottom: 30px;
+}
+
+.error-code {
+  font-family: var(--font-chamativa);
+  font-size: 8rem; 
+  font-weight: 900; 
+  color: var(--accent-blue);
+  margin-bottom: 0px;
+  line-height: 1;
+  text-shadow: 
+    -2px -2px 0 var(--dark-blue), 
+    4px 4px 0 var(--bg-secondary);
+}
+
+.error-message {
+  font-family: var(--font-chamativa);
+  font-size: 2.2rem; 
+  font-weight: 700;
+  color: var(--text-light);
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.error-description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 30px; 
+  background-color: var(--accent-blue);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+.back-home-btn:hover {
+  background-color: var(--accent-blue-hover);
+  transform: translateY(-3px); 
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+}
+
+.back-home-btn i {
+  margin-right: 10px;
+  font-size: 1.3rem;
+}
+
+.error-tip {
+    margin-top: 30px; 
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--medium-gray);
+}
+
+/* Efeito visual de Braille/Pontos */
+
+.braille-container {
+    display: flex;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid black;
+    border-top: 1px solid var(--medium-dark-gray);
+    gap: 20px;
+    flex-flow: row nowrap;
+}
+
+.braille-visual {
+    display: grid;
+    gap: 8px;
+    grid-template: repeat(3, 1fr) / 1fr 1fr;
+}
+
+.dot {
+    width: 16px; 
+    height: 16px;
+    background-color: var(--medium-gray);
+    border-radius: 50%;
+    opacity: 0.3; 
+    transition: background-color 0.3s;
+}
+
+.dot-active {
+    background-color: var(--error-red); 
+    opacity: 1;
+    box-shadow: 0 0 10px var(--error-red);
+}
+
+/* Ajustes para Tema Claro */
+:root[data-theme="light"] .error-container {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme="light"] .error-code {
+    text-shadow: 
+        -2px -2px 0 var(--light-gray),
+        4px 4px 0 var(--extra-light-blue);
+}

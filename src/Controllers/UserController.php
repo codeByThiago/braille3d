@@ -190,6 +190,10 @@ class UserController {
             exit;
         }
     }
+
+    public function notFound() {
+        require_once VIEWS . 'user/404.php';
+    }
 }
 
 ?>

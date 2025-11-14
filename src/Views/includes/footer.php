@@ -10,6 +10,7 @@
             <ul>
                 <li><a href="/cadastro">Cadastrar-se</a></li>
                 <li><a href="/login">Login</a></li>
+                <li><a href="/ajuda">Ajuda</a></li>
                 <li><a href="/">Criar placa</a></li>
             </ul>
         </nav>

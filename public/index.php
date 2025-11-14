@@ -161,6 +161,6 @@ switch ($url) {
         break;
 
     default:
-        echo "Página de Erro 404";
+        $userController->notFound();
         break;
 }
