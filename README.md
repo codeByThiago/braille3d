@@ -1,4 +1,4 @@
-# 📘 Braille3D — Manual de Execução
+# 📘 Braille3D — Manual de Execução (https://github.com/codeByThiago/braille3d)
 
 O **Braille3D** é um sistema desenvolvido como Trabalho de Conclusão de Curso (TCC) com o objetivo de **gerar modelos 3D em Braille** e auxiliar na acessibilidade digital.  
 Ele integra autenticação via Google, envio de e-mails automáticos e gerenciamento de usuários em uma plataforma simples e eficiente.
