@@ -191,6 +191,10 @@ class UserController {
         }
     }
 
+    public function ajuda() {
+        require_once VIEWS . 'user/guia-usuario.php';
+    }
+
     public function notFound() {
         require_once VIEWS . 'user/404.php';
     }

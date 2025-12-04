@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/auth.css">
-    <title>Braille3D - Login</title>
+    <title>Braille3D - Cadastro</title>
 </head>
 <body>
-    <?php include VIEWS . "includes/alert.php";?>
     <div id="main-content-wrapper">
+        <?php include VIEWS . "includes/alert.php";?>
         <section class="auth">
             <div id="welcome-content">
                 <img src="assets/img/logo-braille3d.png" class="logo-icon" alt="Logo Braille3D">

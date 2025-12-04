@@ -119,7 +119,7 @@ class AuthController {
             if (!$user) {
                 $this->userDAO->create(['google_id' => $googleUser['id'], 'auth_type' => 'google', 'name' => $googleUser['name'], 'email' => $googleUser['email'], 'picture' => $googleUser['picture']]);
             } else {
-                $this->userDAO->update($user['id'], ['google_id' => $googleUser['id'], 'auth_type' => 'google', 'name' => $googleUser['name'], 'email' => $googleUser['email'], 'picture' => $googleUser['picture']]);
+                $this->userDAO->update($user['id'], ['google_id' => $googleUser['id'], 'auth_type' => 'google', 'picture' => $googleUser['picture']]);
             }
 
             $user = $this->userDAO->getByEmail($googleUser['email']);

@@ -60,7 +60,7 @@ if(isset($_SESSION['user_id'])) {
                                 if($usuario['google_id'] == NULL) {
                                     echo !empty($usuario['picture']) ? '../assets/img/uploads/' . htmlspecialchars($usuario['picture']) : '../assets/img/default-user.jpg';
                                 } else {
-                                    echo $usuario['picture'];
+                                    echo 'assets/img/uploads/' . $usuario['picture'];
                                 }
                             ?>" 
                             alt="Foto de Perfil" 

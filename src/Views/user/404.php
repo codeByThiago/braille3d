@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/412e60f1e0.js" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/404.css">
-    <script src="filtros.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/404.css">
+    <script src="/filtros.js"></script>
     <title>Braille3D - Not Found Error 404</title>
 </head>
 <body>
@@ -68,6 +68,6 @@
 
     
     <?php include VIEWS . "includes/filtros-cor.php";?>
-    <script src="perfil.js"></script>
+    <script src="/perfil.js"></script>
 </body>
 </html>

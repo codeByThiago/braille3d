@@ -47,6 +47,10 @@ switch ($url) {
         }
         break;
 
+    case '/ajuda':
+        $userController->ajuda();
+        break;
+
     case '/login':
         if ($_SERVER["REQUEST_METHOD"] === 'POST') {
             $authController->login();
@@ -95,7 +99,7 @@ switch ($url) {
         if (isset($_SESSION['user_id'])) {
             $userController->atualizaNome();
         } else {
-            header('Location: /perfil');
+            header('Location: /login');
         }
         break;
 
@@ -104,7 +108,7 @@ switch ($url) {
         if (isset($_SESSION['user_id'])) {
             $emailController->solicitarTrocaEmail($_SESSION['user_id'], $_POST['email'], 'http://localhost:8000');
         } else {
-            header('Location: /perfil');
+            header('Location: /login');
         }
         break;
 
@@ -115,7 +119,7 @@ switch ($url) {
             $email = $user['email'];
             $passwordController->solicitarTrocaSenha($_SESSION['user_id'], $email, 'http://localhost:8000');
         } else {
-            header('Location: /perfil');
+            header('Location: /login');
         }
         break;
 

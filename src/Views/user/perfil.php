@@ -89,7 +89,7 @@
                                 if($usuario['google_id'] == NULL) {
                                     echo !empty($usuario['picture']) ? '../assets/img/uploads/' . htmlspecialchars($usuario['picture']) : '../assets/img/default-user.jpg';
                                 } else {
-                                    echo $usuario['picture'];
+                                    echo 'assets/img/uploads/' . $usuario['picture'];
                                 }
                             ?>" 
                             alt="Foto de Perfil" 
@@ -117,7 +117,7 @@
                     <a href="#" class="profile-menu-item active">
                         <i class="fas fa-user"></i> Meu Perfil
                     </a>
-                    <a href="#" class="profile-menu-item">
+                    <a href="/ajuda" class="profile-menu-item">
                         <i class="fas fa-question-circle"></i> Ajuda
                     </a>
                     <a href="logout" class="profile-menu-item logout">
